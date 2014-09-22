@@ -107,11 +107,11 @@ public class seleniumPrj {
 		
 		if(productLinkID.equals(productID))
 		{
-			System.out.println("Ürün favorilerde");
+			System.out.println(productLinkID + " id li Ürün favorilerde");
 		}
 		else
 		{
-			System.out.println("Ürün favorilerde değil");
+			System.out.println(productLinkID + " id li ürün artık favorilerde değil");
 		}
 		
 		
@@ -126,11 +126,11 @@ public class seleniumPrj {
 		try
 		{
 			assertTrue(selenium.isTextPresent(productLinkID));
-			System.out.println("ürün favorilerde var");
+			System.out.println(productLinkID + " id li ürün favorilerde var");
 		}
 			catch (Throwable e)
 			{
-				System.out.println("ürün artık favorilerde değil");
+				System.out.println(productLinkID + " id li ürün artık favorilerde değil");
 			}
 
 		
