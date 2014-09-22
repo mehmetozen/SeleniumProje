@@ -33,7 +33,7 @@ public class seleniumPrj {
 		selenium.waitForPageToLoad("30000");
 		
 		//1
-		selenium.click("xpath=/html/body/div[2]/div[2]/div/div[1]/div/div/div[1]/form/div[4]");
+		selenium.click("xpath=/html/body/div[1]/div/div/div[1]/div/div/div[1]/form/div[4]");
 		selenium.waitForPageToLoad("30000");
 		
 		//2
@@ -50,19 +50,18 @@ public class seleniumPrj {
 			}
 			
 		//3	
-			selenium.click("link=Çıkış");
-			selenium.waitForPageToLoad("30000");
-			selenium.click("link=Giriş Yap");
-			selenium.waitForPageToLoad("30000");
-			selenium.type("id=email", "seleniumtest@mynet.com");
-			selenium.type("id=password", "a112358");
-			selenium.click("id=loginButton");
-			selenium.waitForPageToLoad("30000");
+		selenium.click("xpath=/html/body/div[1]/header/div/div/div[2]/div[2]/div[1]/div[2]/div/a[8]");
+		selenium.waitForPageToLoad("30000");
+		selenium.click("link=Giriş Yap");
+		selenium.waitForPageToLoad("30000");
+		selenium.type("id=email", "seleniumtest@mynet.com");
+		selenium.type("id=password", "a112358");
+		selenium.click("id=loginButton");
+		selenium.waitForPageToLoad("30000");
 			
 		//4
-		selenium.click("id=contentWrapper");
-		selenium.type("id=productSearchInput", "samsung");
-		selenium.click("id=btnSearch");
+		selenium.type("id=searchData", "samsung");
+		selenium.click("css=a.searchBtn");
 		selenium.waitForPageToLoad("30000");
 		
 		//5
@@ -83,30 +82,36 @@ public class seleniumPrj {
 		String pageNum=selenium.getValue("//*[@name='currentPage']");
 		System.out.println(pageNum + ". Sayfa Şu An Gösterimde");
 		
-		//7
-		selenium.click("xpath=/html/body/div[2]/div[2]/div/div/div[2]/div[1]/div/div[5]/div[2]/div[1]/div[3]/div");
-		selenium.waitForPageToLoad("30000");
-
-		String izleUrl = selenium.getLocation();
 		
-		selenium.click("link=İzlemeye Al");
-		selenium.waitForPageToLoad("30000");
+		
+		//7
+		String productID = selenium.getValue("xpath=/html/body/div[1]/div/div/div/div[2]/section/div[2]/ul/li[3]/div/div[2]/span[2]/@data-productid");
+		selenium.click("xpath=/html/body/div[1]/div/div/div/div[2]/section/div[2]/ul/li[3]/div/div[2]/span[2]");
+		
+	
 		
 		//8
-		selenium.click("link=İzlediklerim");
+		selenium.click("link=Hesabım");
+		selenium.waitForPageToLoad("30000");
+		selenium.click("link=Favorilerim");
 		selenium.waitForPageToLoad("30000");
 		
 		//9
-		String productLink = selenium.getValue("xpath=/html/body/div[2]/div[2]/div/div[2]/div[2]/div[2]/table/tbody/tr/td[3]/p/a/@href");
+		String productLink = selenium.getValue("xpath=/html/body/div[2]/div/div/div[2]/div[2]/div[2]/table/tbody/tr/td[3]/p/a/@href");
+		String[] parcedProductLink = productLink.split("/");
+		String lastElementOfParcedProductLink = parcedProductLink[parcedProductLink.length - 1];
+		String[] parcedLastElementOfParcedProductLink = lastElementOfParcedProductLink.split("-");
+		String productLinkID = parcedLastElementOfParcedProductLink[parcedLastElementOfParcedProductLink.length -1];
+		productLinkID = productLinkID.substring(1);
 		
-		if(productLink.equals(izleUrl))
+		
+		if(productLinkID.equals(productID))
 		{
-			System.out.println("izlenen ürün bulundu");
+			System.out.println("Ürün favorilerde");
 		}
 		else
 		{
-			System.out.println("ürün bulunamadı!!");
-			System.exit(0);
+			System.out.println("Ürün favorilerde değil");
 		}
 		
 		
@@ -115,15 +120,17 @@ public class seleniumPrj {
 		selenium.click("link=Kaldır");
 		selenium.waitForPageToLoad("30000");
 		
+		
 		//11
+		
 		try
 		{
-			assertTrue(selenium.isTextPresent(izleUrl));
-			System.out.println("izlenen ürün var");
+			assertTrue(selenium.isTextPresent(productLinkID));
+			System.out.println("ürün favorilerde var");
 		}
 			catch (Throwable e)
 			{
-				System.out.println("ürün artık izlenmiyor");
+				System.out.println("ürün artık favorilerde değil");
 			}
 
 		
