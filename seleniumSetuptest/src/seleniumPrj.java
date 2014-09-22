@@ -65,10 +65,11 @@ public class seleniumPrj {
 		selenium.waitForPageToLoad("30000");
 		
 		//5
+		String searchCount = selenium.getText("xpath=/html/body/div[1]/div/div/div/div[2]/section/div[1]/div[1]/span");
 			try
 			{
 				assertTrue(selenium.isTextPresent("bulundu"));
-				System.out.println("Samsung bulundu");
+				System.out.println("samsung için " +searchCount + " sonuç bulundu");
 			}
 				catch (Throwable e)
 				{
